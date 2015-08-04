@@ -1,0 +1,64 @@
+<ion-view title="Show Solver Mode" cache-view="false">
+    <ion-content scroll="false" class="all-bg">
+      <div class="pad-top-on-show">
+      </div>
+      <div class="content-wrapper">
+        <div id="solve-mode">Solver Mode</div>
+        <div id="init-time">Initialization is done in {{initTime}} s</div>
+
+        
+
+        <!-- <div id="move-number">{{movenum}} MOVES TO GO!</div> -->
+        <div class="slide-wrapper">
+          <div class="row">
+            <div class="col col-10">
+              
+            </div>
+            <div class="col col-80">
+              <div class="move-wrapper row" id="start">
+                <div class="margin">
+                  <div class="move-num">{{movenum}}</div>
+                 
+                    <div class="move-moves">MOVES
+                    </div>
+                    <div class="move-to-go">TO GO
+                    </div>
+                  
+                </div>
+              </div>
+              <div class="move-wrapper-show-solved row" id="finish" style="display:none;">
+                <div class="margin-finish">
+                  <div class="move-to-go">Congraturations,
+                    </div>
+                  <div class="move-finish">Solved!</div>
+                 
+                    
+                  
+                </div>
+                <div class="detect-new-cube-btn-wrapper">
+                  <button class="button button-outline button-balanced icon icon-left ion-ios-plus-empty detect-new-cube-btn" ng-click="go('/reset')">
+                    Detect New Cube
+                  </button>
+                </div>
+                
+              </div>
+              <div class="move-wrapper" ng-repeat="move in moves track by $index" id="move{{$index+1}}" style="display:none;">
+                <div class="move-type">Move {{$index+1}} : {{move}}</div>
+                <div class="move-slide">
+                  <img src="../www/img/move/{{move}}.gif">
+                </div>
+              </div>
+            </div>
+            <div class="col col-10">
+              <button id="startbtn" class="button button-clear button-light move-btn" ng-click="startsolve()">
+                <div class="icon-left ion-chevron-right"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        
+      </div>
+    </ion-content>
+</ion-view>

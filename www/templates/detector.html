@@ -1,0 +1,60 @@
+<ion-view title="Detector" class="all-bg" cache-view="false">
+    <ion-content scroll="false">
+       <div class="content-wrapper">
+       	<div class="top-to-middle-loading">	
+       	</div>
+       	<!-- loading -->
+       	<img class="loading-cube-img" src="../www/img/loading.gif">
+       	<div id="detectstatus"><!-- <span id="wait">.</span><br> -->Detecting the Cube</div>
+       	<div class="top-to-middle-btn">
+       </div>
+       <!-- cube wrapper -->
+       <div class="cube-wrapper">
+       	<!-- cube -->
+       	<section class="cube-container">
+		  <div id="cube">
+
+		    <figure ng-repeat="side in sides" class="{{side.side}}">
+
+		    		<div ng-repeat="id in side.divid" class="col cube-col" id="{{id.text}}"></div>
+		    </figure>
+		  </div>
+		</section>
+		<!-- option select -->
+		<section id="show-button" class="btn-container">
+		<div>
+			<button class="button button-outline button-light" ng-click="showFront()">F</button>
+			<button class="button button-outline button-light" ng-click="showBack()">B</button>
+			<button class="button button-outline button-light" ng-click="showRight()">R</button>
+			<button class="button button-outline button-light" ng-click="showLeft()">L</button>
+			<button class="button button-outline button-light" ng-click="showUp()">U</button>
+			<button class="button button-outline button-light" ng-click="showDown()">D</button>
+
+		</div>
+	</section>
+       </div><!-- cube wrapper -->
+       <div class="option-selector-wrapper">
+       	<div>
+       	<button class="button button-outline button-calm" ng-click="go('/solver')">
+       		<div class="row">
+	       		<div class="col-25 icon-left ion-loop">
+	       		</div>
+	       		<div class="col-75">
+	       			Solver Mode
+	       		</div>
+       		</div>
+       	</button>
+       	<button class="button button-outline button-balanced" ng-click="go('/tutor')">
+       		<div class="row">
+	       		<div class="col-25 icon-left ion-university">
+	       		</div>
+	       		<div class="col-75">
+	       			Tutor Mode
+	       		</div>
+       		</div>
+       	</button>
+       </div>
+       </div>
+       </div>
+    </ion-content>
+</ion-view>
