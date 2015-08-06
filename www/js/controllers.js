@@ -256,6 +256,8 @@ angular.module('rubikApp.controllers', [])
   
 })
 .controller('ResetCtrl', function($scope,cubeService,$window) {
+
+    $scope.imgpath = 'img/loading.gif';
    
     // reset using cube to init state
         cubeService.usingCube = Cube.fromString("UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB");
@@ -308,6 +310,8 @@ angular.module('rubikApp.controllers', [])
   $scope.go = function ( path ) {
   $location.path( path );
 };
+  
+  $scope.imgpath = 'img/loading.gif';
 
     //detector delay
     var delay=3000; //3 seconds
@@ -375,6 +379,7 @@ angular.module('rubikApp.controllers', [])
   
 })
 .controller('SolverCtrl', function($scope,cubeService,$window) {
+   $scope.imgpath = 'img/loading.gif';
   
    var start, progressHandle;
    var c = cubeService.usingCube;
@@ -419,6 +424,8 @@ angular.module('rubikApp.controllers', [])
 
 })
 .controller('TutorCtrl', function($scope,cubeService,$window) {
+  $scope.imgpath = 'img/loading.gif';
+  var workerpath = 'lib/worker.js';
    var start, progressHandle;
    var c = cubeService.usingCube;
    
@@ -436,7 +443,7 @@ angular.module('rubikApp.controllers', [])
     // }, 300);
   
 
-    Cube.asyncInit('../www/lib/worker.js', function() {
+    Cube.asyncInit(workerpath, function() {
     // Initialized
     console.log('Cube c : '+c.asString());
 
@@ -511,23 +518,6 @@ angular.module('rubikApp.controllers', [])
 
          }, 3000);
        }
-
-       
-         
-      
-    
-     
-       
-           
-
-          
-          
-       
-
-
-        
-
-      
 
     }
 
