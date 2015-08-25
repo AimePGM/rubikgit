@@ -28,6 +28,7 @@ rubikApp.run(function($ionicPlatform) {
 })
 
 rubikApp.config(function($stateProvider, $urlRouterProvider) {
+    
 
   $stateProvider
             .state('init', {

@@ -9,8 +9,8 @@ angular.module('rubikApp.controllers', [])
 
   this.currentSolveAlgo = [];
   this.currentSolveAlgoForMoveRubik = [];
-  this.currentSolveAlgoInverse = [];
-  this.currentSolveAlgoForMoveRubikInverse = [];
+  this.currentSolveAlgoReverse = [];
+  this.currentSolveAlgoForMoveRubikReverse = [];
   this.currentInitTime = 0;
 
   this.convertTwoToOneAlgo = function(algorithm){
@@ -28,13 +28,13 @@ angular.module('rubikApp.controllers', [])
       
     };
 
-    var inversealg = Cube.inverse(alg);
-    return inversealg;
+    var reversealg = Cube.inverse(alg);
+    return reversealg;
   }
 
   this.convertAlgoStrToArr = function(algorithm,type){
           var alg = algorithm;
-          if(type=="inverse"){
+          if(type=="reverse"){
             alg = this.convertTwoToOneAlgo(alg);
              alg = alg.replace(/\s+/g, '');
           }
@@ -43,6 +43,8 @@ angular.module('rubikApp.controllers', [])
           }
           
           console.log(alg);
+
+          
 
           var solvearr = [];
           var formove = [];
@@ -71,9 +73,9 @@ angular.module('rubikApp.controllers', [])
             this.currentSolveAlgo = solvearr;
             this.currentSolveAlgoForMoveRubik = formove;
           }
-          else if (type=="inverse"){
-            this.currentSolveAlgoInverse = solvearr;
-            this.currentSolveAlgoForMoveRubikInverse = formove;
+          else if (type=="reverse"){
+            this.currentSolveAlgoReverse = solvearr;
+            this.currentSolveAlgoForMoveRubikReverse = formove;
           }
   }
 
@@ -274,13 +276,13 @@ angular.module('rubikApp.controllers', [])
         console.log(cubeService.currentSolveAlgoForMoveRubik);
 
 
-        // reset inverse algo
-        cubeService.currentSolveAlgoInverse = [];
-        console.log('solve algo inverse : completed');
-        console.log(cubeService.currentSolveAlgoInverse);
-        cubeService.currentSolveAlgoForMoveRubikInverse = [];
-        console.log('solve algo inverse for move rubik : completed');
-        console.log(cubeService.currentSolveAlgoForMoveRubikInverse);
+        // reset reverse algo
+        cubeService.currentSolveAlgoReverse = [];
+        console.log('solve algo reverse : completed');
+        console.log(cubeService.currentSolveAlgoReverse);
+        cubeService.currentSolveAlgoForMoveRubikReverse = [];
+        console.log('solve algo reverse for move rubik : completed');
+        console.log(cubeService.currentSolveAlgoForMoveRubikReverse);
 
     setTimeout(function(){
     
@@ -423,7 +425,7 @@ angular.module('rubikApp.controllers', [])
     });
 
 })
-.controller('TutorCtrl', function($scope,cubeService,$window) {
+.controller('TutorCtrl', function($scope,cubeService,$window,$http) {
   $scope.imgpath = 'img/loading.gif';
   var workerpath = 'lib/worker.js';
    var start, progressHandle;
@@ -455,7 +457,30 @@ angular.module('rubikApp.controllers', [])
           console.log(cubeService.currentInitTime);
           console.log(algorithm);
           cubeService.convertAlgoStrToArr(algorithm,"normal");
-          cubeService.convertAlgoStrToArr(algorithm,"inverse");
+          cubeService.convertAlgoStrToArr(algorithm,"reverse");
+
+          $http.get('http://localhost:8000/cgi-bin/testpost.py?solvearr='+cubeService.currentSolveAlgo)
+            .success(function(data){
+              $scope.user = data;
+              console.log('successfully access json file from python cgi');
+              console.log(data);
+            })
+            .error(function(data, headers){
+              console.log(data);
+              console.log(headers);
+            });
+
+        // $http.get('http://localhost:8000/cgi-bin/testpost.py')
+        //     .success(function(data){
+        //       $scope.user = data;
+        //       console.log('successfully access json file from python cgi');
+        //       console.log(data);
+        //     })
+        //     .error(function(data, headers){
+        //       console.log(data);
+        //       console.log(headers);
+        //     });
+
           $window.location.href='#/showtutor';
         });
     });
@@ -539,11 +564,11 @@ angular.module('rubikApp.controllers', [])
     // get the current algorithm array for moving rubik
     var formove = cubeService.currentSolveAlgoForMoveRubik;
 
-    //inverse move
-    // get the current inverse algorithm 
-    var algin = cubeService.currentSolveAlgoInverse;
-     // get the current algorithm array for moving rubik inversely
-    var formovein = cubeService.currentSolveAlgoForMoveRubikInverse;
+    //reverse move
+    // get the current reverse algorithm 
+    var algin = cubeService.currentSolveAlgoReverse;
+     // get the current algorithm array for moving rubik reversely
+    var formovein = cubeService.currentSolveAlgoForMoveRubikReverse;
     
     console.log(alg);
     console.log(algin);
