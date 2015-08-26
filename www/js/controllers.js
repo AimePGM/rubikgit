@@ -592,8 +592,8 @@ angular.module('rubikApp.controllers', [])
           $('#start').hide();
           $('#finish').hide();
           c.move(formove[move]);        // move at formove[0]
-          
-          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+formove[move])
+          // console.error("Debug : "+alg[move]);
+          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+alg[move])
             .success(function(data){
               
               console.log('successfully access json file from python cgi');
@@ -617,7 +617,8 @@ angular.module('rubikApp.controllers', [])
 
         else{
           c.move(formove[move]);        // move at formove[index]
-          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+formove[move])
+          // console.error("Debug : "+alg[move]);
+          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+alg[move])
             .success(function(data){
               
               console.log('successfully access json file from python cgi');
@@ -657,7 +658,8 @@ angular.module('rubikApp.controllers', [])
           $('#move'+(move)).hide();       // hide move img step 1
           $('#premovebtn').hide();
           c.move(formovein[(formovein.length - move)]);   // move back to init state (index = formovein.length - 1) ex. index = 33 - 1 = 32 
-          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+formovein[(formovein.length - move)])
+          // console.error("Debug : "+algin[(algin.length - move)]);
+          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+algin[(algin.length - move)])
             .success(function(data){
               
               console.log('successfully access json file from python cgi');
@@ -678,7 +680,8 @@ angular.module('rubikApp.controllers', [])
         // if last move backward
         else if(move==formovein.length){
           c.move(formovein[(formovein.length - move)]);     // move back to previous state (index = formovein.length - move) ex index = 33 - 2 = 31 
-          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+formovein[(formovein.length - move)])
+          // console.error("Debug : "+algin[(algin.length - move)]);
+          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+algin[(algin.length - move)])
             .success(function(data){
               
               console.log('successfully access json file from python cgi');
@@ -703,7 +706,8 @@ angular.module('rubikApp.controllers', [])
           
           move--;
           c.move(formovein[(formovein.length - move)-1]);   // move back to previous state (index = formovein.length - move - 1) ex at move 31 to move 30 --> index = 33 - 30 - 1 = 2 
-          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+formovein[(formovein.length - move)-1])
+          // console.error("Debug : "+algin[(algin.length - move)]);
+          $http.get('http://localhost:8000/cgi-bin/testbluetooth.py?move='+algin[(algin.length - move)-1])
             .success(function(data){
               
               console.log('successfully access json file from python cgi');
